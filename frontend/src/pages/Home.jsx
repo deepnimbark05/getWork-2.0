@@ -1,6 +1,12 @@
 import React from 'react'
 import Header from '../components/Header'
+import { useNavigate } from 'react-router-dom'
+
 const Home = () => {
+  const navigate = useNavigate();
+    const handleLogin = () => {
+      navigate('/workerlist');
+    }
   return (
     <div class="bg-amber-500  p-2">
         <Header/>
@@ -21,28 +27,28 @@ const Home = () => {
         <div class="p-6 flex h-dvh w-full overflow-hidden">
           <div class="w-4/6 h-full  ">
             <h1 className='text-4xl font-bold text-white'>What are you Looking for ?</h1>
-            <div className='grid grid-cols-3 grid-rows-2 gap-4 p-4 h-90 w-160 mt-20'>
-              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+            <div className='grid grid-cols-3 grid-rows-2 gap-4 p-4 h-90 w-160 mt-20 ' >
+              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center cursor-pointer hover:bg-gray-200" onClick={handleLogin}>
                 <img src="user (2).png" alt="Card 6" class="w-20 h-20 object-cover rounded-full" />
                 <h2 class="text-lg font-bold text-black mt-2">Old Care</h2>
               </div>
-              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center cursor-pointer hover:bg-gray-200" onClick={handleLogin}>
                 <img src="user (2).png" alt="Card 6" class="w-20 h-20 object-cover rounded-full" />
                 <h2 class="text-lg font-bold text-black mt-2">House Cleaning</h2>
               </div>
-              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center cursor-pointer hover:bg-gray-200" onClick={handleLogin}>
                 <img src="user (2).png" alt="Card 6" class="w-20 h-20 object-cover rounded-full" />
                 <h2 class="text-lg font-bold text-black mt-2">Cook</h2>
               </div>
-              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center cursor-pointer hover:bg-gray-200" onClick={handleLogin}>
                 <img src="user (2).png" alt="Card 6" class="w-20 h-20 object-cover rounded-full" />
                 <h2 class="text-lg font-bold text-black mt-2">Baby Sitting</h2>
               </div>
-              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center cursor-pointer hover:bg-gray-200" onClick={handleLogin}>
                 <img src="user (2).png" alt="Card 6" class="w-20 h-20 object-cover rounded-+full" />
                 <h2 class="text-lg font-bold text-black mt-2">Home Tution</h2>
               </div>
-              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+              <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center cursor-pointer hover:bg-gray-200" onClick={handleLogin}>
                 <img src="user (2).png" alt="Card 6" class="w-20 h-20 object-cover rounded-full" />
                 <h2 class="text-lg font-bold text-black mt-2">Physiotherapist</h2>
               </div>
