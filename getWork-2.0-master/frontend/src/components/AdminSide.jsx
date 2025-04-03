@@ -10,6 +10,7 @@ const AdminSide = () => {
                 <Link to="/carousel">Carousel</Link>
                 <Link to="/reviews">Reviews</Link>
                 <Link to="/settings">Settings</Link>
+                {/* i got know this shit is complicated */}
 
             </div>
         </div>
