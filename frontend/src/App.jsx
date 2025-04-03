@@ -17,6 +17,8 @@ function App() {
         <Route path="/workerList" element={<WorkerList/>}/>
         <Route path="/workerDetails" element={<WorkerDetails/>}/>
         <Route path='/admin' element={<AdminHome/>}/>
+        <Route path='/createworker' element={<CreateWorker/>}/>
+        <Route path='/choosepayment' element={<ChoosePayment/>}/> 
       </Routes>
     </Router>
   );

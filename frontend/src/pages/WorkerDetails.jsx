@@ -1,8 +1,14 @@
 import React from 'react'
 import Header from '../components/Header'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
+
 const WokerDetails = () => {
   const [rangeValue, setRangeValue] = useState(7);
+  const navigate = useNavigate();
+    const handlepayment = () => {
+      navigate('/choosepayment');
+    }
   return (
     <div class='bg-amber-500  p-2'>
       <Header />
@@ -56,14 +62,14 @@ const WokerDetails = () => {
               <p className='font-semibold'>Total Days</p>
             </div>
             <div className="w-3/4 flex flex-col justify-center pl-4">
-              <input 
-              type="range" 
-              name="daycount" 
-              min="7" 
-              max="60"
-              value={rangeValue}
-              onChange={(e) => setRangeValue(e.target.value)}
-              className='cursor-pointer w-60'
+              <input
+                type="range"
+                name="daycount"
+                min="7"
+                max="60"
+                value={rangeValue}
+                onChange={(e) => setRangeValue(e.target.value)}
+                className='cursor-pointer w-60'
               />
               <label className='font-semibold'> : {rangeValue} days added</label>
             </div>
@@ -74,7 +80,7 @@ const WokerDetails = () => {
               <p className='font-semibold'>Total Amount</p>
             </div>
             <div className="w-3/4 flex flex-col justify-center pl-4">
-              <p className='font-semibold'>:  INR {rangeValue*500} </p>
+              <p className='font-semibold'>:  INR {rangeValue * 500} </p>
             </div>
           </div>
 
@@ -88,15 +94,36 @@ const WokerDetails = () => {
           </div>
 
         </div>
-        <div className='w-1/4 bg-white p-4 rounded'>
-        <button className='bg-orange-400 rounded w-full'>ADD TO CART</button>
-        
-        <button className='bg-orange-400 rounded w-full mt-3'>BOOK</button>
+        <div className="w-1/4  rounded flex flex-col justify-between">
+          <div className="bg-white w-full h-3/8 rounded flex flex-col justify-center items-center">
+          <img src="add-cart_6337186.png " className='h-28 w-28' alt="" />
+          <p>Empty Cart</p>
+          </div>
 
+          <div className='bg-white w-full items-center flex justify-between p-2 rounded'>
+          <img src="discount_2268553.png" className='h-12 w-12 ' alt="" />  
+          <p className='font-bold'>Get Extra Off <span className='text-sm font-normal'>above 3000 !</span></p>
+          </div>
+
+          <div className="bg-white w-full h-3/8 rounded flex justify-between items-center p-4 `">
+            <div>
+              <p className='font-bold'>UC Promise</p>
+              <p className=' mt-2'>Verified Professionals Hassle Free Booking Transparent Pricing</p>
+            </div>
+            <img src="verified_18945371.png" className='h-22 w-22' alt="" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <button className="bg-white rounded w-full p-0.5 cursor-pointer">ADD TO CART</button>
+            <button className="bg-white rounded w-full p-0.5 cursor-pointer" onClick={handlepayment}>BOOK</button>
+          </div>
         </div>
 
+
       </div>
+
     </div>
+
   )
 }
 
