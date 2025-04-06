@@ -7,7 +7,7 @@ import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import ChoosePayment from './pages/ChoosePayment';
 import AdminHome from './pages/AdminHome';
-import Reviews from './components/Reviews'; // ✅ Import Reviews component
+// import Reviews from './components/Reviews'; // ✅ Import Reviews component
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Route path='/workerList' element={<WorkerList />} />
         <Route path='/workerDetails' element={<WorkerDetails />} />
         <Route path='/admin' element={<AdminHome />} />
-        <Route path='/reviews' element={<Reviews />} /> {/* ✅ Flat route as requested */}
+        {/* <Route path='/reviews' element={<Reviews />} /> ✅ Flat route as requested */}
         <Route path='/createworker' element={<CreateWorker />} />
         <Route path='/choosepayment' element={<ChoosePayment />} /> 
       </Routes>
