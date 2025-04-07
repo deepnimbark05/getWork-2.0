@@ -7,7 +7,11 @@ import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import ChoosePayment from './pages/ChoosePayment';
 import AdminHome from './pages/AdminHome';
-// import Reviews from './components/Reviews'; // ✅ Import Reviews component
+import Dashboard from './components/Dashboard';
+import Carousel from './components/Carousel'; // ✅ Added
+import Reviews from './components/Reviews'; // adjust path if it's in a different folder
+import Workers from './components/Workers'; // adjust path if it's in a different folder
+
 
 function App() {
   return (
@@ -18,10 +22,14 @@ function App() {
         <Route path='/signup' element={<SignUp />} /> 
         <Route path='/workerList' element={<WorkerList />} />
         <Route path='/workerDetails' element={<WorkerDetails />} />
-        <Route path='/admin' element={<AdminHome />} />
-        {/* <Route path='/reviews' element={<Reviews />} /> ✅ Flat route as requested */}
         <Route path='/createworker' element={<CreateWorker />} />
-        <Route path='/choosepayment' element={<ChoosePayment />} /> 
+        <Route path='/choosepayment' element={<ChoosePayment />} />
+        <Route path='/admin' element={<AdminHome />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/carousel' element={<Carousel />} /> {/* ✅ New Carousel Route */}
+        <Route path='/reviews' element={<Reviews />} />
+        <Route path='/workers' element={<Workers/>}></Route>
+
       </Routes>
     </Router>
   );
