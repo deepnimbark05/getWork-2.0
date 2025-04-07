@@ -1,7 +1,10 @@
 import React from 'react'
 // import AdminDashboard from '../components/AdminDashboard'
-import AdminSide from '../components/Carousel'
+import Carousel from '../components/Carousel'
 import Reviews from '../components/Reviews'
+import Workers from '../components/Workers'
+import Dashboard from '../components/Dashboard'
+// import AdminDashboard from '../components/AdminDashboard'
 const AdminHome = () => {
     return (
         <div class='bg-black  h-full p-2'>
