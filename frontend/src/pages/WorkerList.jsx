@@ -23,7 +23,7 @@ const WorkerList = () => {
   };
 
   return (
-    <div class='bg-amber-500  p-2'>
+    <div class='bg-gradient-to-b from-amber-500 to-white  p-2'>
       <Header />
       <div class="m-4 flex flex items-center justify-between">
         <div>

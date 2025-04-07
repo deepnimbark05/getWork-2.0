@@ -8,7 +8,7 @@ const Home = () => {
       navigate('/workerlist');
     }
   return (
-    <div class="bg-amber-500  p-2">
+    <div class=" bg-gradient-to-b from-amber-500 to-white p-2">
         <Header/>
         <div class="p-6 flex h-dvh w-full overflow-hidden">
           <div class="w-2/5 h-full  flex flex-col text-black space-y-4">

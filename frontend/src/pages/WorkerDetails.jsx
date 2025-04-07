@@ -10,10 +10,10 @@ const WokerDetails = () => {
       navigate('/choosepayment');
     }
   return (
-    <div class='bg-amber-500  p-2'>
+    <div class='bg-gradient-to-b from-amber-500 to-white  p-2'>
       <Header />
       <div className='w-full h-screen flex gap-4 p-4'>
-        <div className='w-3/4 bg-white p-4 rounded'>
+        <div className='w-3/4 bg-white p-4 rounded shadow-lg'>
 
           <div className="flex  p-4 rounded-lg pl-8">
             {/* Profile Picture */}
@@ -114,8 +114,8 @@ const WokerDetails = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <button className="bg-white rounded w-full p-0.5 cursor-pointer">ADD TO CART</button>
-            <button className="bg-white rounded w-full p-0.5 cursor-pointer" onClick={handlepayment}>BOOK</button>
+            <button className="bg-amber-500 text-white font-semibold hover:bg-amber-600 rounded w-full p-0.5 cursor-pointer">ADD TO CART</button>
+            <button className="bg-amber-500 text-white font-semibold hover:bg-amber-600 rounded w-full p-0.5 cursor-pointer" onClick={handlepayment}>BOOK</button>
           </div>
         </div>
         

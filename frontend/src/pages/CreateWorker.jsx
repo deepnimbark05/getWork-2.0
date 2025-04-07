@@ -12,8 +12,9 @@ const CreateWorker = () => {
                             <img src="user (2).png" className="h-30 w-30" alt="" />
                         </div>
                         <div className="w-1/2 flex justify-end items-center">
-                            <button className='bg-orange-400 rounded w-20 p-2 font-semibold text-white'>Save</button>
-                            <button className='bg-orange-400 rounded w-20 p-2 font-semibold text-white ml-4'>Edit</button>
+                            <button className='bg-orange-400 rounded w-20 p-2 font-semibold text-white cursor-pointer hover:bg-orange-500 transition-all duration-300'>Save</button>
+                            <button className='bg-orange-400 rounded w-20 p-2 font-semibold text-white ml-4 cursor-pointer hover:bg-orange-500 transition-all duration-300'>Edit</button>
+
 
                         </div>
                     </div>
@@ -21,11 +22,11 @@ const CreateWorker = () => {
                     <div className="flex pl-8 pr-8 gap-3 mt-5">
                         <div className="w-1/2 pt-2 ">
                             <p>First Name</p>
-                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm"  placeholder='Your firstname'/>
+                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm" placeholder='Your firstname' />
                         </div>
                         <div className="w-1/2 pt-2">
                             <p>Last Name</p>
-                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm"  placeholder='Your lastname'/>
+                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm" placeholder='Your lastname' />
                         </div>
                     </div>
                     <div className="flex pl-8 pr-8 gap-3 mt-3">
@@ -64,27 +65,27 @@ const CreateWorker = () => {
                         </div>
                         <div className="w-1/2 pt-2">
                             <p>Phone no.</p>
-                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm"  placeholder='Enter your phone number'/>
+                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm" placeholder='Enter your phone number' />
                         </div>
                     </div>
                     <div className="flex pl-8 pr-8 gap-3 mt-3">
                         <div className="w-1/2 pt-2 ">
                             <p>Email</p>
-                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm"  placeholder='Enter your Email'/>
+                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm" placeholder='Enter your Email' />
                         </div>
                         <div className="w-1/2 pt-2">
                             <p>Experiaece</p>
-                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm"  placeholder='Enter your experiance'/>
+                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm" placeholder='Enter your experiance' />
                         </div>
                     </div>
                     <div className="flex pl-8 pr-8 gap-3 mt-3">
                         <div className="w-1/2 pt-2 ">
                             <p>Per Day Charge</p>
-                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm"  placeholder='Enter your Per day Charge'/>
+                            <input type="text" className="w-full h-8 bg-white rounded p-1 pl-3 text-sm" placeholder='Enter your Per day Charge' />
                         </div>
-                       
+
                     </div>
-                    
+
                 </div>
             </div>
         </div>

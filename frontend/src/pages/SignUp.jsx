@@ -7,7 +7,7 @@ const SignUp = () => {
         navigate('/');
     }
     return (
-        <div class="flex items-center justify-center min-h-screen bg-amber-500 p-4 h-screen">
+        <div class="flex items-center justify-center min-h-screen bg-gradient-to-b from-amber-500 to-white p-4 h-screen">
 
             <div className='bg-white pl-6 pr-6 pt-2 pb-4 rounded-2xl w-100 rounded'>
                 <div className="flex justify-between items-center">
