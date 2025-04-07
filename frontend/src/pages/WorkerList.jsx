@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Header from '../components/Header'
-import WorkerCard from '../components/WorkerCard'
+import Workers from '../components/Workers'
 import { useNavigate } from 'react-router-dom'
 
 const WorkerList = () => {
@@ -44,17 +44,17 @@ const WorkerList = () => {
       </div>
       <hr className="border-t-2 border-white my-4" />
       <div class=" flex pl-10 pr-10 justify-center place-items-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-        <WorkerCard onClick={handleLogin} />
-        <WorkerCard onClick={handleLogin} />
-        <WorkerCard onClick={handleLogin} />
-        <WorkerCard onClick={handleLogin} />
-        <WorkerCard onClick={handleLogin} />
-        <WorkerCard onClick={handleLogin} />
-        <WorkerCard onClick={handleLogin} />
-        <WorkerCard onClick={handleLogin} />
-        <WorkerCard onClick={handleLogin} />
-        <WorkerCard onClick={handleLogin} />
-        <WorkerCard onClick={handleLogin} />
+        <Workers onClick={handleLogin} />
+        <Workers onClick={handleLogin} />
+        <Workers onClick={handleLogin} />
+        <Workers onClick={handleLogin} />
+        <Workers onClick={handleLogin} />
+        <Workers onClick={handleLogin} />
+        <Workers onClick={handleLogin} />
+        <Workers onClick={handleLogin} />
+        <Workers onClick={handleLogin} />
+        <Workers onClick={handleLogin} />
+        <Workers onClick={handleLogin} />
       </div>
 
 
