@@ -1,9 +1,32 @@
 import React from 'react'
-import Header from '../components/Header'
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { jwtDecode } from "jwt-decode";
+import Header from '../components/Header'
+
+
 
 const Home = () => {
+  const [name, setName] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('token='))
+      ?.split('=')[1];
+
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log("Decoded token:", decoded);
+        setName(decoded.name); 
+      } catch (error) {
+        console.log("Invalid token");
+      }
+    }
+  }, []);
+
   const handleCat = () => {
     navigate('/workerlist1');
   }
@@ -12,7 +35,7 @@ const Home = () => {
       <Header />
       <div class="p-6 flex h-dvh w-full overflow-hidden">
         <div class="w-2/5 h-full  flex flex-col text-black space-y-4">
-          <h1 className="text-5xl font-bold">Hello, <span class="text-white">Smit</span></h1>
+          <h1 className="text-5xl font-bold">Hello, <span className="text-white">{name || "Guest"}</span></h1>
           <h1 className="text-5xl font-bold">Get Your</h1>
           <h1 className="text-5xl font-bold">Services at</h1>
           <h1 className="text-5xl font-bold">Your</h1>

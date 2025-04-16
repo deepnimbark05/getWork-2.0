@@ -3,12 +3,19 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const UserModel = require('./models/User')
 const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
 
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET","POST"],
+    credentials: true,
+}
+))
+app.use(cookieParser())
 
 mongoose.connect("mongodb://0.0.0.0/getWork");
 
@@ -19,7 +26,10 @@ app.post("/login", (req, res) => {
             if (user) {
                 bcrypt.compare(password, user.password, (err, response) => {
                     if (response) {
-                        res.json("success")
+                        const token = jwt.sign({ email: user.email, name: user.name }, "jwt-secret-key",{ expiresIn: "1d" });
+                          res.cookie("token", token, { httpOnly: true });
+                          res.json("success");
+                          
                     }else{
                         res.json("password incorrect")
                     } 
@@ -40,6 +50,7 @@ app.post('/register', (req, res) => {
                 .catch(err => res.json(err))
         }).catch(err => console.log(err.message))
 })
+
 
 app.listen(3001, () => {
     console.log("server is running");
