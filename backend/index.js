@@ -4,19 +4,24 @@ const cors = require('cors')
 const UserModel = require('./models/User')
 const bcrypt = require('bcrypt')
 const workerRoutes = require('./routes/workers')
-
+const carousel = require("./routes/Carousel")
+const homeImageRoutes = require('./routes/homeImages')
 const app = express()
+const path = require('path')
+
+app.use(cors())
 app.use(express.json())
-app.use(cors({
-    origin: ["http://localhost:5173"],
-    methods: ["GET","POST"],
-    credentials: true,
-}))
+
+// Serve static files from the public directory
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')))
+app.use('/uploads/worker', express.static(path.join(__dirname, 'public/uploads/worker')))
 
 mongoose.connect("mongodb://0.0.0.0/getWork");
 
 // Worker routes
 app.use('/api/workers', workerRoutes);
+app.use('/api/carousel',carousel );
+app.use('/api/home-images', homeImageRoutes);
 
 // Login route
 app.post("/login", (req, res) => {

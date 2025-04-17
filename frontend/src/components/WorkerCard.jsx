@@ -7,7 +7,7 @@ const WorkerCard = ({ worker, onClick }) => {
       onClick={onClick}
     >
       <img 
-        src="user (2).png" 
+        src={worker.imageUrl ? `http://localhost:3001${worker.imageUrl}` : "/user (2).png"} 
         alt={worker.name} 
         className="w-20 h-20 object-cover rounded-full border-2 border-gray-300 hover:border-blue-400 transition duration-300" 
       />

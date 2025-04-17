@@ -14,7 +14,7 @@ import Carousel from './components/Carousel';
 import Reviews from './components/Reviews';
 import Workers from './components/Workers';
 import ContactUs from './pages/ContactUs';
-
+import EditWorker from './pages/EditWorker';
 function App() {
   return (
     <Router>
@@ -33,6 +33,7 @@ function App() {
         <Route path='/carousel' element={<Carousel />} />
         <Route path='/reviews' element={<Reviews />} />
         <Route path='/workers' element={<Workers />} />
+        <Route path='/editworker' element={<EditWorker />} />
       </Routes>
     </Router>
   );

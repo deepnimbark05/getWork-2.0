@@ -49,6 +49,28 @@ const WorkerSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    reviewList: [{
+        rating: {
+            type: Number,
+            required: true
+        },
+        comment: {
+            type: String,
+            default: ''
+        },
+        date: {
+            type: Date,
+            default: Date.now
+        },
+        isDisabled: {
+            type: Boolean,
+            default: false
+        }
+    }],
+    imageUrl: {
+        type: String,
+        default: '/uploads/workers/default.png'
+    },
     createdAt: {
         type: Date,
         default: Date.now

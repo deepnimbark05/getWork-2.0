@@ -18,15 +18,13 @@ const WorkerList = () => {
     const searchParams = new URLSearchParams(location.search);
     const category = searchParams.get('category');
     
-    console.log('Category from URL:', category); // Debug log
+    console.log('Category from URL:', category);
 
     const fetchWorkers = async () => {
       try {
-        // First get all workers
         const response = await axios.get('http://localhost:3001/api/workers');
-        console.log('All workers:', response.data); // Debug log
+        console.log('All workers:', response.data);
 
-        // Map of URL categories to database categories
         const categoryMap = {
           'oldcare': 'Old Care',
           'housecleaning': 'House Cleaning',
@@ -36,16 +34,17 @@ const WorkerList = () => {
           'physiotherapist': 'Physiotherapist'
         };
 
-        // Get the proper category name from the map
         const properCategory = categoryMap[category] || category;
-        console.log('Looking for workers with category:', properCategory); // Debug log
+        console.log('Looking for workers with category:', properCategory);
 
-        // Filter workers by category
-        const filteredWorkers = response.data.filter(worker => 
+        let filteredWorkers = response.data.filter(worker => 
           worker.category === properCategory
         );
         
-        console.log('Filtered workers:', filteredWorkers); // Debug log
+        // Sort workers based on the selected option
+        filteredWorkers = sortWorkers(filteredWorkers, sortOption);
+        
+        console.log('Filtered and sorted workers:', filteredWorkers);
         setWorkers(filteredWorkers);
         setLoading(false);
       } catch (error) {
@@ -61,7 +60,26 @@ const WorkerList = () => {
       setError('No category selected');
       setLoading(false);
     }
-  }, [location.search]);
+  }, [location.search, sortOption]);
+
+  const sortWorkers = (workers, sortOption) => {
+    const sortedWorkers = [...workers];
+    
+    switch (sortOption) {
+      case 'popular':
+        // Sort by number of reviews (descending)
+        return sortedWorkers.sort((a, b) => (b.reviews || 0) - (a.reviews || 0));
+      case 'highest_review':
+        // Sort by rating (descending)
+        return sortedWorkers.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      case 'oldest':
+        // Sort by experience (descending)
+        return sortedWorkers.sort((a, b) => (b.experience || 0) - (a.experience || 0));
+      default:
+        // Default sort (by name)
+        return sortedWorkers.sort((a, b) => a.name.localeCompare(b.name));
+    }
+  };
 
   const handleWorkerClick = (workerId) => {
     navigate(`/workerdetails/${workerId}`);
@@ -69,8 +87,6 @@ const WorkerList = () => {
 
   const handleSortChange = (event) => {
     setSortOption(event.target.value);
-    // Here, you can implement sorting logic if needed
-    console.log("Selected sort option:", event.target.value);
   };
 
   return (
@@ -86,7 +102,7 @@ const WorkerList = () => {
             <option value="">Sort by</option>
             <option value="popular">Most Popular</option>
             <option value="highest_review">Highest Review</option>
-            <option value="oldest">Oldest Worker</option>
+            <option value="oldest">Most Experienced</option>
           </select>
         </div>
         <div class="font-bold text-gray-700">
