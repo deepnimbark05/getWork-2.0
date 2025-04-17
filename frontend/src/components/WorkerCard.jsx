@@ -1,15 +1,26 @@
 import React from 'react'
 
-const WorkerCard = ({ onClick }) => {
+const WorkerCard = ({ worker, onClick }) => {
   return (
     <div 
-      className="w-60 h-70 bg-white shadow-lg rounded-lg p-4 border border-gray-300 flex flex-col items-center justify-center text-center cursor-pointer hover:scale-105 duration-300"
+      className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:bg-gray-100 w-60"
       onClick={onClick}
     >
-      <img src="user (2).png" alt="Profile" className="w-44 h-44 rounded-full" />
-      <h2 className="text-xl font-bold text-black mt-2">Dr Smit Dodiya</h2>
-      <p className="text-blue-600 font-bold mt-2">Physiotherapy</p>
-      <br />
+      <img 
+        src="user (2).png" 
+        alt={worker.name} 
+        className="w-20 h-20 object-cover rounded-full border-2 border-gray-300 hover:border-blue-400 transition duration-300" 
+      />
+      <h2 className="text-lg font-semibold text-black mt-4">{worker.name}</h2>
+      <p className="text-sm text-gray-600">{worker.category}</p>
+      <div className="flex items-center mt-2">
+        <span className="text-amber-500">★</span>
+        <span className="text-sm text-gray-600 ml-1">{worker.rating} ({worker.reviews} reviews)</span>
+      </div>
+      <div className="mt-2 text-sm text-gray-600">
+        <p>Experience: {worker.experience}</p>
+        <p>Per Day: ₹{worker.perDayCharge}</p>
+      </div>
     </div>
   )
 }

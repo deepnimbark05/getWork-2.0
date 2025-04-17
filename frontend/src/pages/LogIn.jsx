@@ -13,9 +13,10 @@ const Login = () => {
     e.preventDefault();
     axios.post('http://localhost:3001/login', {name, password })
       .then(result => {
-        console.log(result);
-        if(result.data === "success"){
-           navigate('/home'); // Only navigate after successful registration
+        if(result.data.status === "success"){
+          // Store name in localStorage
+          localStorage.setItem('userName', result.data.name);
+          navigate('/home');
         }
       })
       .catch(err => console.log(err));

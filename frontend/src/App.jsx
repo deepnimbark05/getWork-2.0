@@ -23,14 +23,12 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/signup' element={<SignUp />} /> 
         <Route path='/workerlist1' element={<WorkerList />} />
-        <Route path='/workerdetails' element={<WorkerDetails />} />
+        <Route path='/workerdetails/:id' element={<WorkerDetails />} />
         <Route path='/createworker' element={<CreateWorker />} />
         <Route path='/choosepayment' element={<ChoosePayment />} />
         <Route path='/successfull' element={<Successfull />} />
         <Route path='/notification' element={<Notification />} />  
         <Route path='/contactus' element={<ContactUs/>}/>
-
-
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/carousel' element={<Carousel />} />
         <Route path='/reviews' element={<Reviews />} />
