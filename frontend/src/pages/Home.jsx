@@ -2,16 +2,18 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
+import HomeCarousel from '../components/Carousel'
 
 const Home = () => {
   const [name, setName] = useState('Guest');
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Get name from localStorage (set during login)
-    const userName = localStorage.getItem('userName');
-    if (userName) {
-      setName(userName);
+    // Get user data from localStorage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      setName(user.name);
     }
   }, []);
 
@@ -31,25 +33,31 @@ const Home = () => {
   };
 
   return (
-    <div class="bg-gradient-to-b from-amber-500 to-white p-2">
+    <div className="bg-gradient-to-b from-amber-500 to-white p-2">
       <Header />
-      <div class="p-6 flex h-dvh w-full overflow-hidden">
-        <div class="w-2/5 h-full flex flex-col text-black space-y-4">
+      
+      {/* Carousel Section */}
+      <div className="mb-8">
+        <HomeCarousel />
+      </div>
+
+      <div className="p-6 flex h-dvh w-full overflow-hidden">
+        <div className="w-2/5 h-full flex flex-col text-black space-y-4">
           <h1 className="text-5xl font-bold">Hello, <span className="text-white">{name || "Guest"}</span></h1>
           <h1 className="text-5xl font-bold">Get Your</h1>
           <h1 className="text-5xl font-bold">Services at</h1>
           <h1 className="text-5xl font-bold">Your</h1>
           <h1 className="text-5xl font-bold">Doorstep</h1>
         </div>
-        <div class="w-3/5 h-full">
-          <img src="home1.png" alt="" class="w-full h-full object-cover" />
+        <div className="w-3/5 h-full">
+          <img src="home1.png" alt="" className="w-full h-full object-cover" />
         </div>
       </div>
 
-      <div class="p-6 flex h-dvh w-full overflow-hidden">
-        <div class="w-4/6 h-full">
+      <div className="p-6 flex h-dvh w-full overflow-hidden">
+        <div className="w-4/6 h-full">
           <h1 className='text-4xl font-bold text-white'>What are you Looking for ?</h1>
-          <div className='grid grid-cols-3 grid-rows-2 gap-6 p-6 h-90 w-160 mt-20'>
+          <div className='grid grid-cols-3 grid-rows-2 gap-5 p-1 h-95 w-160 mt-10'>
             {[
               { img: 'exercising.png', title: 'Old Care' },
               { img: 'broom.png', title: 'House Cleaning' },
@@ -69,8 +77,8 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <div class="w-2/6 h-full">
-          <img src="home2.png" alt="" class="w-full h-full object-cover" />
+        <div className="w-2/6 h-full">
+          <img src="home2.png" alt="" className="w-full h-full object-cover" />
         </div>
       </div>
 

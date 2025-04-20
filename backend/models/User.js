@@ -1,28 +1,32 @@
 const mongoose = require('mongoose')
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     email: {
         type: String,
         required: true,
-        unique: true
-    },
-    phone: {
-        type: String,
-        required: true
+        unique: true,
+        trim: true,
+        lowercase: true
     },
     password: {
         type: String,
         required: true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
+    },
+    lastLogin: {
+        type: Date
     }
+}, {
+    timestamps: true // This will add createdAt and updatedAt fields
 })
 
-const User = mongoose.model('User', UserSchema)
-module.exports = User
+module.exports = mongoose.model('User', userSchema)

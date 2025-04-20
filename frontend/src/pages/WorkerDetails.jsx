@@ -153,88 +153,116 @@ const WorkerDetails = () => {
   }
 
   return (
-    <div className="bg-gradient-to-b from-amber-500 to-white p-2">
+    <div className="min-h-screen bg-gradient-to-b from-amber-500 to-white">
       <Header />
-      <div className="w-full h-screen flex gap-4 p-4">
-        <div className="w-3/4 bg-white p-4 rounded shadow-lg">
-          <div className="flex p-4 rounded-lg pl-8">
-            <div className="w-1/4">
-              <img 
-                src={worker?.imageUrl ? `http://localhost:3001${worker.imageUrl}` : "/user (2).png"} 
-                alt="Profile" 
-                className="w-40 h-40 rounded-full object-cover" 
-              />
+      <div className="max-w-6xl mx-auto p-6">
+        {/* Worker Profile Card */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <div className="flex flex-col md:flex-row gap-8">
+            {/* Left Side - Image */}
+            <div className="md:w-1/3">
+              <div className="w-[250px] h-[250px] mx-auto overflow-hidden rounded-xl shadow-md">
+                <img 
+                  src={worker?.imageUrl ? `http://localhost:3001${worker.imageUrl}` : "/user (2).png"} 
+                  alt={worker.name} 
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" 
+                />
+              </div>
             </div>
-            <div className="w-3/4 flex flex-col justify-center pl-4">
-              <h2 className="text-xl font-bold">{worker.name}</h2>
-              <p className="text-blue-600 font-semibold">{worker.category}</p>
-              <p className="text-orange-400 font-semibold">{worker.rating || '4.5'} ({worker.reviews || 'available'})</p>
-              <h2 className="text-l font-bold">Experience: {worker.experience} Years</h2>
+
+            {/* Right Side - Info */}
+            <div className="md:w-2/3">
+              <h1 className="text-3xl font-bold text-gray-800 mb-2">{worker.name}</h1>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-medium">
+                  {worker.category}
+                </span>
+                <div className="flex items-center text-amber-500">
+                  <span className="text-xl">★</span>
+                  <span className="ml-1 text-gray-700">{worker.rating || '4.5'}</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="text-gray-600 mb-1">Experience</h3>
+                  <p className="font-semibold">{worker.experience} Years</p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="text-gray-600 mb-1">Languages</h3>
+                  <p className="font-semibold">{worker.language}</p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="text-gray-600 mb-1">Per Day Charge</h3>
+                  <p className="font-semibold">₹{worker.perDayCharge}</p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="text-gray-600 mb-1">Start Date</h3>
+                  <p className="font-semibold">{new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long' })}</p>
+                </div>
+              </div>
+
+              {/* Booking Section */}
+              <div className="bg-gray-50 p-4 rounded-lg mb-6">
+                <h3 className="text-gray-600 mb-3">Select Duration</h3>
+                <div className="flex items-center gap-4">
+                  <input
+                    type="range"
+                    min="7"
+                    max="60"
+                    value={rangeValue}
+                    onChange={handleRangeChange}
+                    className="w-full h-2 bg-amber-200 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <span className="font-semibold min-w-[100px]">{rangeValue} days</span>
+                </div>
+                <div className="mt-4 flex justify-between items-center">
+                  <div>
+                    <span className="text-gray-600">Total Amount:</span>
+                    <span className="ml-2 text-2xl font-bold">₹{totalAmount}</span>
+                  </div>
+                  <button 
+                    onClick={handlePayment}
+                    className="bg-amber-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-amber-600 transition-colors"
+                  >
+                    Book Now
+                  </button>
+                </div>
+              </div>
+
+              {/* About Section */}
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <h3 className="text-gray-600 mb-2">About</h3>
+                <p className="text-gray-700">
+                  Professional worker with extensive experience in {worker.category}. Committed to providing high-quality service and ensuring client satisfaction.
+                </p>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className="flex p-2 rounded-lg pl-8">
-            <div className="w-1/4"><p className="font-semibold">Languages</p></div>
-            <div className="w-3/4 flex flex-col justify-center pl-4">
-              <p className="font-semibold">: {worker.language}</p>
-            </div>
+        {/* Reviews Section */}
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-800">Reviews & Ratings</h2>
+            {!ratingSubmitted && (
+              <button
+                onClick={() => setRating(rating > 0 ? 0 : 5)}
+                className="text-amber-500 hover:text-amber-600"
+              >
+                Write a Review
+              </button>
+            )}
           </div>
 
-          <div className="flex p-2 rounded-lg pl-8">
-            <div className="w-1/4"><p className="font-semibold">Per Day Charge</p></div>
-            <div className="w-3/4 flex flex-col justify-center pl-4">
-              <p className="font-semibold">: INR {worker.perDayCharge}</p>
-            </div>
-          </div>
-
-          <div className="flex p-2 rounded-lg pl-8">
-            <div className="w-1/4"><p className="font-semibold">Duration Date Start</p></div>
-            <div className="w-3/4 flex flex-col justify-center pl-4">
-              <p className="font-semibold">: {new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short' }).toUpperCase()}</p>
-            </div>
-          </div>
-
-          <div className="flex p-2 rounded-lg pl-8">
-            <div className="w-1/4"><p className="font-semibold">Total Days</p></div>
-            <div className="w-3/4 flex flex-col justify-center pl-4">
-              <input
-                type="range"
-                name="daycount"
-                min="7"
-                max="60"
-                value={rangeValue}
-                onChange={handleRangeChange}
-                className="cursor-pointer w-60"
-              />
-              <label className="font-semibold"> : {rangeValue} days added</label>
-            </div>
-          </div>
-
-          <div className="flex p-2 rounded-lg pl-8">
-            <div className="w-1/4"><p className="font-semibold">Total Amount</p></div>
-            <div className="w-3/4 flex flex-col justify-center pl-4">
-              <p className="font-semibold">: INR {totalAmount}</p>
-            </div>
-          </div>
-
-          <div className="flex p-2 rounded-lg pl-8">
-            <div className="w-1/4"><p className="font-semibold">Info</p></div>
-            <div className="w-3/4 flex flex-col justify-center pl-4">
-              <p className="font-semibold">: Worker info exchange is a non profit organisation dedicated to helping workers access and gain insight from data collected from them at work.</p>
-            </div>
-          </div>
-
-          {/* Rating Section */}
-          <div className="flex p-2 rounded-lg pl-8">
-            <div className="w-1/4">
-              <p className="font-semibold">Rate Worker</p>
-            </div>
-            <div className="w-3/4 flex flex-col justify-center pl-4">
-              <div className="flex items-center gap-1 mb-2">
+          {/* Rating Input */}
+          {rating > 0 && !ratingSubmitted && (
+            <div className="bg-gray-50 p-4 rounded-lg mb-6">
+              <div className="flex items-center gap-2 mb-4">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
                     key={star}
-                    className={`text-2xl ${(hoverRating || rating) >= star ? 'text-yellow-400' : 'text-gray-300'}`}
+                    className={`text-3xl ${(hoverRating || rating) >= star ? 'text-amber-400' : 'text-gray-300'}`}
                     onClick={() => setRating(star)}
                     onMouseEnter={() => setHoverRating(star)}
                     onMouseLeave={() => setHoverRating(0)}
@@ -243,137 +271,90 @@ const WorkerDetails = () => {
                   </button>
                 ))}
               </div>
-              {rating > 0 && !ratingSubmitted && (
-                <>
-                  <textarea
-                    className="w-full p-2 border rounded mb-2"
-                    placeholder="Share your experience with this worker..."
-                    value={ratingComment}
-                    onChange={(e) => setRatingComment(e.target.value)}
-                    rows="3"
-                  />
-                  <button
-                    onClick={handleRatingSubmit}
-                    className="bg-amber-500 text-white px-4 py-1 rounded hover:bg-amber-600 w-32"
-                  >
-                    Submit Rating
-                  </button>
-                </>
-              )}
-              {ratingSubmitted && (
-                <span className="text-green-600 font-semibold mb-4">Thank you for your rating and feedback!</span>
-              )}
+              <textarea
+                className="w-full p-3 border rounded-lg mb-4"
+                placeholder="Share your experience with this worker..."
+                value={ratingComment}
+                onChange={(e) => setRatingComment(e.target.value)}
+                rows="3"
+              />
+              <button
+                onClick={handleRatingSubmit}
+                className="bg-amber-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-amber-600 transition-colors"
+              >
+                Submit Review
+              </button>
+            </div>
+          )}
 
-              {/* Reviews Display Section */}
-              {loadingReviews ? (
-                <div className="flex justify-center items-center py-4">
-                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-amber-500"></div>
+          {/* Success Message */}
+          {ratingSubmitted && (
+            <div className="bg-green-50 text-green-700 p-4 rounded-lg mb-6">
+              Thank you for your review! Your feedback helps others make better decisions.
+            </div>
+          )}
+
+          {/* Reviews List */}
+          {loadingReviews ? (
+            <div className="flex justify-center items-center py-8">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
+            </div>
+          ) : reviewList.length > 0 ? (
+            <div className="space-y-4">
+              <div className="flex justify-between items-center mb-4">
+                <input
+                  type="text"
+                  placeholder="Search reviews..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="px-4 py-2 border rounded-lg w-64"
+                />
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleSortChange('date')}
+                    className={`px-4 py-2 rounded-lg ${
+                      sortBy === 'date' ? 'bg-amber-500 text-white' : 'bg-gray-100'
+                    }`}
+                  >
+                    Date {sortBy === 'date' && (sortOrder === 'asc' ? '↑' : '↓')}
+                  </button>
+                  <button
+                    onClick={() => handleSortChange('rating')}
+                    className={`px-4 py-2 rounded-lg ${
+                      sortBy === 'rating' ? 'bg-amber-500 text-white' : 'bg-gray-100'
+                    }`}
+                  >
+                    Rating {sortBy === 'rating' && (sortOrder === 'asc' ? '↑' : '↓')}
+                  </button>
                 </div>
-              ) : reviewList.length > 0 ? (
-                <div className="mt-4">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-semibold">All Reviews ({sortedAndFilteredReviews.length})</h3>
-                    <div className="flex gap-2">
-                      <input
-                        type="text"
-                        placeholder="Search reviews..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="px-3 py-1 border rounded"
-                      />
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => handleSortChange('date')}
-                          className={`px-3 py-1 rounded flex items-center gap-1 ${
-                            sortBy === 'date'
-                              ? 'bg-amber-500 text-white'
-                              : 'bg-gray-200 text-gray-700'
-                          }`}
-                        >
-                          Date
-                          {sortBy === 'date' && (
-                            <span className="text-sm">
-                              {sortOrder === 'asc' ? '↑' : '↓'}
-                            </span>
-                          )}
-                        </button>
-                        <button
-                          onClick={() => handleSortChange('rating')}
-                          className={`px-3 py-1 rounded flex items-center gap-1 ${
-                            sortBy === 'rating'
-                              ? 'bg-amber-500 text-white'
-                              : 'bg-gray-200 text-gray-700'
-                          }`}
-                        >
-                          Rating
-                          {sortBy === 'rating' && (
-                            <span className="text-sm">
-                              {sortOrder === 'asc' ? '↑' : '↓'}
-                            </span>
-                          )}
-                        </button>
+              </div>
+              {sortedAndFilteredReviews.map((review, index) => (
+                <div key={index} className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <div className="flex text-amber-400">
+                        {[...Array(5)].map((_, i) => (
+                          <span key={i} className={i < review.rating ? 'text-amber-400' : 'text-gray-300'}>
+                            ★
+                          </span>
+                        ))}
                       </div>
+                      <span className="text-gray-500">
+                        {new Date(review.date).toLocaleDateString()}
+                      </span>
                     </div>
                   </div>
-                  <div className="space-y-4">
-                    {sortedAndFilteredReviews.map((review, index) => (
-                      <div key={index} className="border rounded p-3 bg-gray-50">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center">
-                            <div className="flex">
-                              {[...Array(5)].map((_, i) => (
-                                <span
-                                  key={i}
-                                  className={`text-xl ${i < review.rating ? 'text-yellow-400' : 'text-gray-300'}`}
-                                >
-                                  ★
-                                </span>
-                              ))}
-                            </div>
-                            <span className="text-sm text-gray-500 ml-2">
-                              {new Date(review.date).toLocaleDateString()}
-                            </span>
-                          </div>
-                        </div>
-                        {review.comment && (
-                          <p className="text-gray-700">{review.comment}</p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                  {review.comment && (
+                    <p className="text-gray-700">{review.comment}</p>
+                  )}
                 </div>
-              ) : (
-                <div className="mt-4 text-gray-500">
-                  No reviews yet. Be the first to review!
-                </div>
-              )}
+              ))}
             </div>
-          </div>
-        </div>
-
-        <div className="w-1/4 rounded flex flex-col justify-between">
-          <div className="bg-white w-full h-3/8 rounded flex flex-col justify-center items-center">
-            <img src="/add-cart_6337186.png" className="h-28 w-28" alt="" />
-            <p>Empty Cart</p>
-          </div>
-
-          <div className="bg-white w-full items-center flex justify-between p-2 rounded">
-            <img src="/discount_2268553.png" className="h-12 w-12" alt="" />
-            <p className="font-bold">Get Extra Off <span className="text-sm font-normal">above 3000 !</span></p>
-          </div>
-
-          <div className="bg-white w-full h-3/8 rounded flex justify-between items-center p-4">
-            <div>
-              <p className="font-bold">UC Promise</p>
-              <p className="mt-2">Verified Professionals Hassle Free Booking Transparent Pricing</p>
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              No reviews yet. Be the first to review!
             </div>
-            <img src="/verified_18945371.png" className="h-22 w-22" alt="" />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <button className="bg-amber-500 text-white font-semibold hover:bg-amber-600 rounded w-full p-0.5 cursor-pointer">ADD TO CART</button>
-            <button className="bg-amber-500 text-white font-semibold hover:bg-amber-600 rounded w-full p-0.5 cursor-pointer" onClick={handlePayment}>BOOK</button>
-          </div>
+          )}
         </div>
       </div>
     </div>

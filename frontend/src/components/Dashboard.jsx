@@ -28,7 +28,11 @@ let usersChartInstance = null;
 const Dashboard = () => {
   const [workerData, setWorkerData] = useState([]);
   const [userData, setUserData] = useState([]);
-  const [userStats, setUserStats] = useState({ totalUsers: 0, usersByMonth: [] });
+  const [userStats, setUserStats] = useState({ 
+    totalUsers: 0,
+    usersByMonth: [],
+    recentUsers: []
+  });
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('date'); // 'date' or 'count'
   const [sortOrder, setSortOrder] = useState('asc'); // 'asc' or 'desc'
@@ -36,6 +40,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
+        
         // Fetch worker data
         const workersResponse = await axios.get('http://localhost:3001/api/workers');
         const workers = workersResponse.data;
@@ -48,12 +54,24 @@ const Dashboard = () => {
 
         setWorkerData(categoryCounts);
 
-        // Fetch user statistics
-        const userStatsResponse = await axios.get('http://localhost:3001/api/users/stats');
-        setUserStats(userStatsResponse.data);
+        // Fetch user statistics and user data
+        const [userStatsResponse, usersResponse] = await Promise.all([
+          axios.get('http://localhost:3001/api/users/stats'),
+          axios.get('http://localhost:3001/api/users')
+        ]);
+
+        const stats = userStatsResponse.data;
+        const users = usersResponse.data;
+
+        // Update user stats
+        setUserStats({
+          totalUsers: stats.totalUsers,
+          usersByMonth: stats.usersByMonth,
+          recentUsers: users.slice(0, 5) // Get 5 most recent users
+        });
 
         // Format user data for chart
-        const formattedUserData = userStatsResponse.data.usersByMonth.map(item => ({
+        const formattedUserData = stats.usersByMonth.map(item => ({
           month: `${item._id.year}-${String(item._id.month).padStart(2, '0')}`,
           count: item.count,
           year: item._id.year,
@@ -274,10 +292,10 @@ const Dashboard = () => {
                 </div>
                 <div className="col-span-1">
                   <div className="flex flex-row items-center p-5 bg-white rounded shadow hover:shadow-md transition-shadow">
-                    <img src="images/cancel.png" alt="Canceled" className="w-12 h-12 rounded-full" />
+                    <img src="images/new-user.png" alt="New Users" className="w-12 h-12 rounded-full" />
                     <div className="ml-4">
-                      <h4 className="text-xl font-bold">65</h4>
-                      <p className="text-gray-600">Total Canceled</p>
+                      <h4 className="text-xl font-bold">{userStats.recentUsers.length}</h4>
+                      <p className="text-gray-600">Recent Users</p>
                     </div>
                   </div>
                 </div>
@@ -289,6 +307,33 @@ const Dashboard = () => {
                       <p className="text-gray-600">Total Revenue</p>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              {/* Recent Users List */}
+              <div className="mt-8 bg-white p-5 rounded-lg shadow-md">
+                <h4 className="text-lg font-bold mb-4">Recent Users</h4>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full table-auto">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="px-4 py-2 text-left">Name</th>
+                        <th className="px-4 py-2 text-left">Email</th>
+                        <th className="px-4 py-2 text-left">Join Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {userStats.recentUsers.map((user, index) => (
+                        <tr key={user._id} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                          <td className="px-4 py-2">{user.name}</td>
+                          <td className="px-4 py-2">{user.email}</td>
+                          <td className="px-4 py-2">
+                            {new Date(user.createdAt).toLocaleDateString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
 
